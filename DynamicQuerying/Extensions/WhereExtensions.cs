@@ -12,10 +12,17 @@ namespace DynamicQuerying.Extensions
                 return query;
 
             var parameter = Expression.Parameter(typeof(T), "entity");
-            var property = parameter.CallToUpperString(filter);
+            Expression expression = Expression.Constant(false);
 
-            var readyExpression = Expression.Equal(property, Expression.Constant(filter.UpperValue));
-            var predicate = Expression.Lambda<Func<T, bool>>(readyExpression, parameter);
+            foreach (var value in filter.Values)
+            {
+                var property = parameter.CallToUpperString(filter);
+                var comparableValue = Expression.Constant(value.ToUpper());
+
+                expression = Expression.Or(expression, Expression.Equal(property, comparableValue));
+            }
+
+            var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
             return query.Where(predicate);
         }

@@ -14,6 +14,8 @@ namespace DynamicQuerying.Tests.Factories
                 new() {Id = Guids.First(), PositionCounter = 1},
                 new() {Id = Guids.Second(), PositionCounter = 3},
                 new() {Id = Guids.Third(), PositionCounter = 1},
+                new() {Id = Guids.Fourth(), PositionCounter = 2},
+                new() {Id = Guids.Fifth(), PositionCounter = 5},
             };
             
             dbContext.Orders.AddRange(orders);

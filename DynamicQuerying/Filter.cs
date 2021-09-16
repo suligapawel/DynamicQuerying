@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using DynamicQuerying.Dictionaries;
 
 namespace DynamicQuerying
 {
     public class Filter
     {
         public string Field { get; init; }
-        public string Value { get; init; }
-        public string UpperValue => Value.ToUpper();
-    }
-
-    public enum Operator
-    {
-        And,
-        Or
+        public IReadOnlyCollection<string> Values { get; init; }
+        public ComparisonType ComparisonType { get; init; } = ComparisonType.Equal;
     }
 }

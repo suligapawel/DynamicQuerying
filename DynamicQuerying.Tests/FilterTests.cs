@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DynamicQuerying.Extensions;
 using DynamicQuerying.Tests.DAL;
@@ -38,7 +39,7 @@ namespace DynamicQuerying.Tests
             Filter oneMatchFilter = new()
             {
                 Field = "Id",
-                Value = Guids.First().ToString()
+                Values = new List<string> {Guids.First().ToString()}
             };
 
             int result = await _dbContext.Orders.Where(oneMatchFilter).CountAsync();
@@ -52,12 +53,12 @@ namespace DynamicQuerying.Tests
             Filter oneMatchFilter = new()
             {
                 Field = "PositionCounter",
-                Value = 1.ToString()
+                Values = new List<string> {1.ToString(), 2.ToString()}
             };
 
             int result = await _dbContext.Orders.Where(oneMatchFilter).CountAsync();
 
-            result.Should().Be(2);
+            result.Should().Be(3);
         }
 
         [Test]
