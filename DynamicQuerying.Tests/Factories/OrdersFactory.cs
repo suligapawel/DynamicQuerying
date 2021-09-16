@@ -11,7 +11,8 @@ namespace DynamicQuerying.Tests.Factories
         {
             var orders = new List<Order>
             {
-                new() {Id = Guids.First()}
+                new() {Id = Guids.First()},
+                new() {Id = Guids.Second()},
             };
             
             dbContext.Orders.AddRange(orders);

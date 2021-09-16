@@ -1,18 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DynamicQuerying
 {
     public class Filter
     {
-        public List<Param> Type { get; set; }
-
-
-        public class Param
-        {
-            public string Field { get; set; }
-            public List<string> Values { get; set; }
-            public Operator Operator { get; set; }
-        }
+        public string Field { get; init; }
+        public string Value { get; init; }
     }
 
     public enum Operator
