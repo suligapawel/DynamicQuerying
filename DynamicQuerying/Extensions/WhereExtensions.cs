@@ -8,22 +8,29 @@ namespace DynamicQuerying.Extensions
     {
         public static IQueryable<T> Where<T>(this IQueryable<T> query, Filter filter)
         {
-            if (filter == null)
+            if (filter == null || HasNoField<T>(filter.Field))
                 return query;
 
             var parameter = Expression.Parameter(typeof(T), "entity");
-            var property = parameter.CallToString(filter);
+            var property = parameter.CallToUpperString(filter);
 
-            var readyExpression = Expression.Equal(property, Expression.Constant(filter.Value));
+            var readyExpression = Expression.Equal(property, Expression.Constant(filter.UpperValue));
             var predicate = Expression.Lambda<Func<T, bool>>(readyExpression, parameter);
 
             return query.Where(predicate);
         }
 
-        private static Expression CallToString(this Expression parameter, Filter filter)
+        private static bool HasNoField<T>(string filterField)
         {
-            var property = Expression.PropertyOrField(parameter, filter.Field);
-            return Expression.Call(property, "ToString", null);
+            var type = typeof(T);
+            return type.GetProperty(filterField) == null;
+        }
+
+        private static Expression CallToUpperString(this Expression parameter, Filter filter)
+        {
+            var property = Expression.Property(parameter, filter.Field);
+            var asString = Expression.Call(property, "ToString", null);
+            return Expression.Call(asString, "ToUpper", null);
         }
     }
 }
