@@ -4,12 +4,12 @@ namespace DynamicQuerying.Dictionaries
     {
         Equal,
         NotEqual,
+        StartsWith,
+        Contains,
+        Between,
         GreaterThan,
         LessThan,
         GreaterOrEqual,
-        LessOrEqual,
-        Between,
-        StartsWith,
-        Contains
+        LessOrEqual
     }
 }
