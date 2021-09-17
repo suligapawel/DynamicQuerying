@@ -71,18 +71,25 @@ namespace DynamicQuerying.Tests
             result.Should().Be(expected);
         }
         
-        [Test]
-        public async Task Should_try_convert_values_type_when_types_are_not_equal()
+        [TestCase("IsActive", "false", 1)]
+        [TestCase("Date", "2020-12-31", 1)]
+        [TestCase("Coast", "100.9", 1)]
+        [TestCase("Tax", "0.08", 1)]
+        [TestCase("Id", "53b2a5ee-46d2-46b9-ac46-2489bd38c461", 1)]
+        [TestCase("PositionCounter", "1", 2)]
+        [TestCase("Description", "53b2a5ee-46d2-46b9-ac46-2489bd38c461", 1)]
+        public async Task Should_try_convert_values_type_when_types_are_not_equal(string field, string param,
+            int expected)
         {
             Filter notEqualFieldTypes = new()
             {
-                Field = "Id",
-                Values = new List<object> {"53b2a5ee-46d2-46b9-ac46-2489bd38c461"}
+                Field = field,
+                Values = new List<object> {param}
             };
-            
+
             var result = await _dbContext.Orders.Where(notEqualFieldTypes).CountAsync();
 
-            result.Should().Be(1);
+            result.Should().Be(expected);
         }
     }
 }
