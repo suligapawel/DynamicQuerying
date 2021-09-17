@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace DynamicQuerying.Tests
 {
-    public class ComparisonTests
+    public class StringComparisonTests
     {
         private InMemoryDbContext _dbContext;
 
