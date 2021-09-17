@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace DynamicQuerying.Tests
 {
-    public class Tests
+    public class FilterTests
     {
         private InMemoryDbContext _dbContext;
 

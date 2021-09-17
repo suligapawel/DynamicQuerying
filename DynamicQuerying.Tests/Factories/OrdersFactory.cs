@@ -31,7 +31,7 @@ namespace DynamicQuerying.Tests.Factories
                 new()
                 {
                     Id = Guids.Fourth(), PositionCounter = 2, Coast = 100.9M, Date = date,
-                    Description = Guids.Fourth().ToString(), Tax = 0.23d, IsActive = true
+                    Description = "Description_for_test_start_with", Tax = 0.23d, IsActive = true
                 },
                 new()
                 {

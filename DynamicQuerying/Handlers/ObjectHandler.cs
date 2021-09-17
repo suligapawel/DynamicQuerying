@@ -1,4 +1,5 @@
 using System;
+using System.Linq.Expressions;
 using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
@@ -30,6 +31,13 @@ namespace DynamicQuerying.Handlers
 
             return parseResult;
         }
+
+        public virtual Expression Equal(Expression parameter, Expression value)
+            => Expression.Equal(parameter, value);
+        
+        public virtual Expression StartWith(Expression parameter, Expression value) 
+            => Expression.Constant(false);
+            
 
         protected abstract bool TrySpecifyParse(string value, out object result);
     }

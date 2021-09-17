@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using DynamicQuerying.Dictionaries;
 using DynamicQuerying.Handlers;
 
 namespace DynamicQuerying.Extensions
@@ -26,12 +27,24 @@ namespace DynamicQuerying.Extensions
                 if (!parseResult) continue;
 
                 var comparableValue = Expression.Constant(parsed);
-                expression = Expression.Or(expression, Expression.Equal(property, comparableValue));
+
+                var expressionFromFilterMethod =
+                    GetFilterMethod(filter.ComparisonType, property, comparableValue, handler);
+                expression = Expression.Or(expression, expressionFromFilterMethod);
             }
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
             return query.Where(predicate);
+        }
+
+        private static Expression GetFilterMethod(ComparisonType filterComparisonType, Expression property,
+            Expression comparableValue, ObjectHandler handler)
+        {
+            return (Expression) handler
+                .GetType()
+                .GetMethod(filterComparisonType.ToString())
+                ?.Invoke(handler, new object[] {property, comparableValue});
         }
 
         private static bool HasNoField<T>(string filterField)

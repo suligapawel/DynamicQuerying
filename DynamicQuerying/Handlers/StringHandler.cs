@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
@@ -9,6 +10,9 @@ namespace DynamicQuerying.Handlers
             result = value;
             return true;
         }
+
+        public override Expression StartWith(Expression property, Expression value) 
+            => Expression.Call(property, "StartsWith", null, value);
 
         private static Expression CallToUpperString(Expression parameter, Filter filter)
         {
