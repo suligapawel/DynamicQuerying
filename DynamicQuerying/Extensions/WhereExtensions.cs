@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace DynamicQuerying.Extensions
 {
@@ -16,15 +18,39 @@ namespace DynamicQuerying.Extensions
 
             foreach (var value in filter.Values)
             {
-                var property = parameter.CallToUpperString(filter);
-                var comparableValue = Expression.Constant(value.ToUpper());
+                var property = Expression.Property(parameter, filter.Field); // .CallToUpperString(filter);
 
+                var pt = ((PropertyInfo) property.Member).PropertyType;
+                var pppp = ConvertType(pt, value);
+
+
+                var comparableValue = Expression.Constant(pppp);
                 expression = Expression.Or(expression, Expression.Equal(property, comparableValue));
             }
 
             var predicate = Expression.Lambda<Func<T, bool>>(expression, parameter);
 
             return query.Where(predicate);
+        }
+
+        private static object ConvertType(MemberInfo pt, object value)
+        {
+            if (value == null) return null;
+
+            var valueAsString = value?.ToString();
+            if (string.IsNullOrEmpty(valueAsString)) return null;
+
+            return pt.Name switch
+            {
+                "Guid" => new Guid(valueAsString),
+                "Boolean" => bool.Parse(valueAsString),
+                "Int32" => int.Parse(valueAsString),
+                "Double" => double.Parse(valueAsString),
+                "Decimal" => decimal.Parse(valueAsString),
+                "String" => valueAsString.ToUpper(),
+                "DateTime" => DateTime.Parse(valueAsString),
+                _ => throw new NotSupportedException()
+            };
         }
 
         private static bool HasNoField<T>(string filterField)
