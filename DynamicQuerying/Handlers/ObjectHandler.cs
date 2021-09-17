@@ -44,6 +44,20 @@ namespace DynamicQuerying.Handlers
         public virtual Expression Contains(Expression parameter, Expression value) 
             => Expression.Constant(false);
             
+        public virtual Expression Between(Expression parameter, Expression value) 
+            => Expression.Constant(false);
+        
+        public virtual Expression GreaterThan(Expression parameter, Expression value) 
+            => Expression.Constant(false);
+        
+        public virtual Expression GreaterOrEqual(Expression parameter, Expression value) 
+            => Expression.Constant(false);
+        
+        public virtual Expression LessThan(Expression parameter, Expression value) 
+            => Expression.Constant(false);
+        
+        public virtual Expression LessOrEqual(Expression parameter, Expression value) 
+            => Expression.Constant(false);
 
         protected abstract bool TrySpecifyParse(string value, out object result);
     }
