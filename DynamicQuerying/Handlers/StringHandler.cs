@@ -1,5 +1,4 @@
 using System.Linq.Expressions;
-using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
@@ -11,17 +10,20 @@ namespace DynamicQuerying.Handlers
             return true;
         }
 
-        public override Expression StartWith(Expression property, Expression value) 
-            => Expression.Call(property, "StartsWith", null, value);
+        public override Expression StartsWith(Expression property, Expression value)
+            => EqualExpression(property, value, nameof(StartsWith));
 
-        public override Expression Contains(Expression property, Expression value) 
-            => Expression.Call(property, "Contains", null, value);
-        
-        private static Expression CallToUpperString(Expression parameter, Filter filter)
-        {
-            var property = Expression.Property(parameter, filter.Field);
-            var asString = Expression.Call(property, "ToString", null);
-            return Expression.Call(asString, "ToUpper", null);
-        }
+        public override Expression Contains(Expression property, Expression value)
+            => EqualExpression(property, value, nameof(Contains));
+
+        private static Expression EqualExpression(Expression property, Expression value, string methodName)
+            => Expression.Call(
+                ToUpper(property),
+                methodName,
+                null,
+                ToUpper(value));
+
+        private static Expression ToUpper(Expression property)
+            => Expression.Call(property, "ToUpper", null);
     }
 }

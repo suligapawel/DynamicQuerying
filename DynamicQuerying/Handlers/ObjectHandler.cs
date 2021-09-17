@@ -35,7 +35,7 @@ namespace DynamicQuerying.Handlers
         public virtual Expression Equal(Expression parameter, Expression value)
             => Expression.Equal(parameter, value);
         
-        public virtual Expression StartWith(Expression parameter, Expression value) 
+        public virtual Expression StartsWith(Expression parameter, Expression value) 
             => Expression.Constant(false);
         
         public virtual Expression Contains(Expression parameter, Expression value) 

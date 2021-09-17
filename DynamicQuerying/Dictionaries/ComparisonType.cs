@@ -9,7 +9,7 @@ namespace DynamicQuerying.Dictionaries
         GreaterOrEqual,
         LessOrEqual,
         Between,
-        StartWith,
+        StartsWith,
         Contains
     }
 }
