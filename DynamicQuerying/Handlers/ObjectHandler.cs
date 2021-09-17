@@ -37,6 +37,9 @@ namespace DynamicQuerying.Handlers
         
         public virtual Expression StartWith(Expression parameter, Expression value) 
             => Expression.Constant(false);
+        
+        public virtual Expression Contains(Expression parameter, Expression value) 
+            => Expression.Constant(false);
             
 
         protected abstract bool TrySpecifyParse(string value, out object result);

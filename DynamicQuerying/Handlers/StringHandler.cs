@@ -14,6 +14,9 @@ namespace DynamicQuerying.Handlers
         public override Expression StartWith(Expression property, Expression value) 
             => Expression.Call(property, "StartsWith", null, value);
 
+        public override Expression Contains(Expression property, Expression value) 
+            => Expression.Call(property, "Contains", null, value);
+        
         private static Expression CallToUpperString(Expression parameter, Filter filter)
         {
             var property = Expression.Property(parameter, filter.Field);
