@@ -8,7 +8,7 @@ using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 
-namespace DynamicQuerying.Tests
+namespace DynamicQuerying.Tests.Tests
 {
     public class FilterTests
     {
