@@ -26,7 +26,7 @@ namespace DynamicQuerying.Tests.Factories
                 new()
                 {
                     Id = Guids.Third(), PositionCounter = 1, Coast = 22.3M, Date = date.AddDays(-1),
-                    Description = Guids.Third().ToString(), Tax = 0.23d, IsActive = true
+                    Description = "Equal", Tax = 0.23d, IsActive = true
                 },
                 new()
                 {

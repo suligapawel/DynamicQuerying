@@ -20,6 +20,38 @@ namespace DynamicQuerying.Tests
             _dbContext = InMemoryDbContextFactory.Init();
             OrdersFactory.AddOrdersCollection(_dbContext);
         }
+        
+        [TestCase("Equal")]
+        [TestCase("eQuAl")]       
+        public async Task Should_return_object_with_description_when_description_equal_value(string value)
+        {
+            Filter notEqualFilter = new()
+            {
+                Field = "Description",
+                Values = new List<object> {value},
+                ComparisonType = ComparisonType.Equal
+            };
+
+            var result = await _dbContext.Orders.Where(notEqualFilter).FirstAsync();
+
+            result.Description.Should().Be("Equal");
+        }
+        
+        [TestCase("Equal")]
+        [TestCase("eQuAl")]       
+        public async Task Should_return_objects_with_other_description_when_description_no_equal_value(string value)
+        {
+            Filter notEqualFilter = new()
+            {
+                Field = "Description",
+                Values = new List<object> {value},
+                ComparisonType = ComparisonType.NotEqual
+            };
+
+            var result = await _dbContext.Orders.Where(notEqualFilter).ToListAsync();
+
+            result.Should().NotContain(x => x.Description == "Equal");
+        }
 
         [TestCase("Desc")]
         [TestCase("dESC")]

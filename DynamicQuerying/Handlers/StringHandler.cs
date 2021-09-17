@@ -10,6 +10,12 @@ namespace DynamicQuerying.Handlers
             return true;
         }
 
+        public override Expression Equal(Expression property, Expression value)
+            => Expression.Equal(ToUpper(property), ToUpper(value));
+        
+        public override Expression NotEqual(Expression property, Expression value)
+            => Expression.NotEqual(ToUpper(property), ToUpper(value));
+        
         public override Expression StartsWith(Expression property, Expression value)
             => EqualExpression(property, value, nameof(StartsWith));
 
