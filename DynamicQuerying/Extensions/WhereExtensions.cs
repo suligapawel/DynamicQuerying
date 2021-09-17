@@ -21,9 +21,8 @@ namespace DynamicQuerying.Extensions
                 var property = Expression.Property(parameter, filter.Field);
                 var propertyType = ((PropertyInfo) property.Member).PropertyType;
                 var handler = ObjectHandler.Init(propertyType.Name);
-                var valueAsString = value.AsString();
 
-                var parseResult = handler.TryParse(valueAsString, out var parsed);
+                var parseResult = handler.TryParse(value, out var parsed);
                 if (!parseResult) continue;
 
                 var comparableValue = Expression.Constant(parsed);

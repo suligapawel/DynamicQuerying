@@ -35,7 +35,7 @@ namespace DynamicQuerying.Tests.Factories
                 },
                 new()
                 {
-                    Id = Guids.Fifth(), PositionCounter = 5, Coast = 22.3M, Date = date,
+                    Id = Guids.Fifth(), PositionCounter = 99, Coast = 22.3M, Date = date,
                     Description = Guids.Fifth().ToString(), Tax = 0.08d, IsActive = true
                 }
             };

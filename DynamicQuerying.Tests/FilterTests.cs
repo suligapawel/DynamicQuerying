@@ -70,16 +70,22 @@ namespace DynamicQuerying.Tests
 
             result.Should().Be(expected);
         }
-        
-        [TestCase("IsActive", "false", 1)]
-        [TestCase("Date", "2020-12-31", 1)]
-        [TestCase("Coast", "100.9", 1)]
-        [TestCase("Tax", "0.08", 1)]
-        [TestCase("Id", "53b2a5ee-46d2-46b9-ac46-2489bd38c461", 1)]
-        [TestCase("PositionCounter", "1", 2)]
-        [TestCase("Description", "53b2a5ee-46d2-46b9-ac46-2489bd38c461", 1)]
-        public async Task Should_try_convert_values_type_when_types_are_not_equal(string field, string param,
-            int expected)
+
+        [TestCase("IsActive", "false")]
+        [TestCase("IsActive", "False")]
+        [TestCase("IsActive", false)]
+        [TestCase("Date", "2020-12-31")]
+        [TestCase("Date", "2020/12/31")]
+        [TestCase("Date", "2020.12.31")]
+        [TestCase("Coast", "100.9")]
+        [TestCase("Coast", 100.9)]
+        [TestCase("Tax", "0.08")]
+        [TestCase("Tax", 0.08)]
+        [TestCase("Id", "53b2a5ee-46d2-46b9-ac46-2489bd38c461")]
+        [TestCase("PositionCounter", "99")]
+        [TestCase("PositionCounter", 99)]
+        [TestCase("Description", "53b2a5ee-46d2-46b9-ac46-2489bd38c461")]
+        public async Task Should_try_convert_values_type_when_types_are_not_equal(string field, object param)
         {
             Filter notEqualFieldTypes = new()
             {
@@ -89,7 +95,7 @@ namespace DynamicQuerying.Tests
 
             var result = await _dbContext.Orders.Where(notEqualFieldTypes).CountAsync();
 
-            result.Should().Be(expected);
+            result.Should().Be(1);
         }
     }
 }
