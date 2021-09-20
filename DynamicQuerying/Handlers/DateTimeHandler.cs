@@ -1,12 +1,13 @@
 using System;
+using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
     internal class DateTimeHandler : ObjectHandler
     {
-        protected override bool TrySpecifyParse(string value, out object result)
+        public override bool TryParse(object value, out object result)
         {
-            var parseResult = DateTime.TryParse(value, out var dateTime);
+            var parseResult = DateTime.TryParse(value.AsString(), out var dateTime);
             result = dateTime;
 
             return parseResult;

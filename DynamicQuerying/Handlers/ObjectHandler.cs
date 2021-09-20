@@ -1,6 +1,5 @@
 using System;
 using System.Linq.Expressions;
-using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
@@ -22,16 +21,6 @@ namespace DynamicQuerying.Handlers
             return (ObjectHandler) Activator.CreateInstance(type, null);
         }
         
-        public bool TryParse(object value, out object result)
-        {
-            var valueAsString = value.AsString();
-
-            var parseResult = TrySpecifyParse(valueAsString, out var r);
-            result = r;
-
-            return parseResult;
-        }
-
         public virtual Expression Equal(Expression parameter, Expression value)
             => Expression.Equal(parameter, value);
         
@@ -58,7 +47,7 @@ namespace DynamicQuerying.Handlers
         
         public virtual Expression LessOrEqual(Expression parameter, Expression value) 
             => Expression.LessThanOrEqual(parameter, value);
-
-        protected abstract bool TrySpecifyParse(string value, out object result);
+        
+        public abstract bool TryParse(object value, out object result);
     }
 }

@@ -11,5 +11,13 @@ namespace DynamicQuerying.Tests.DAL.Entities
         public Guid Id { get; set; }
         public int PositionCounter { get; set; }
         public string Description { get; set; }
+        public State State { get; set; }
+    }
+
+    public enum State
+    {
+        New,
+        InProgress,
+        Close
     }
 }

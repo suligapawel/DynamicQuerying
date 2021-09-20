@@ -1,13 +1,14 @@
 using System;
 using System.Linq.Expressions;
+using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
     internal class GuidHandler : ObjectHandler
     {
-        protected override bool TrySpecifyParse(string value, out object result)
+        public override bool TryParse(object value, out object result)
         {
-            var parseResult = Guid.TryParse(value, out var guid);
+            var parseResult = Guid.TryParse(value.AsString(), out var guid);
             result = guid;
 
             return parseResult;

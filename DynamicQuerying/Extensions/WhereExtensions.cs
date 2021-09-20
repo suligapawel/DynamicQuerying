@@ -19,7 +19,7 @@ namespace DynamicQuerying.Extensions
                 return query;
 
             var expression = new Expressions<T>(filter.Field);
-            var handler = ObjectHandler.Init(expression.PropertyType);
+            var handler = ObjectHandler.Init(!expression.Property.Type.IsEnum ? expression.PropertyType : "Enum");
 
             foreach (var value in filter.Values)
             {

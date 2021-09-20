@@ -1,12 +1,13 @@
 using System.Linq.Expressions;
+using DynamicQuerying.Extensions;
 
 namespace DynamicQuerying.Handlers
 {
     internal class BooleanHandler : ObjectHandler
     {
-        protected override bool TrySpecifyParse(string value, out object result)
+        public override bool TryParse(object value, out object result)
         {
-            var parseResult = bool.TryParse(value , out bool r);
+            var parseResult = bool.TryParse(value.AsString() , out bool r);
             result = r;
 
             return parseResult;
