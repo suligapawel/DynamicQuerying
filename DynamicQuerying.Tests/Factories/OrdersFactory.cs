@@ -16,17 +16,17 @@ namespace DynamicQuerying.Tests.Factories
             {
                 new()
                 {
-                    Id = Guids.First(), PositionCounter = 1, Coast = 22.3M, Date = AnyDate.AddDays(-5),
+                    Id = Guids.First(), PositionCounter = 1, Coast = 22.6M, Date = AnyDate.AddDays(-5),
                     Description = Guids.First().ToString(), Tax = 0.23d, IsActive = true
                 },
                 new()
                 {
-                    Id = Guids.Second(), PositionCounter = 3, Coast = 22.3M, Date = AnyDate.AddDays(5),
+                    Id = Guids.Second(), PositionCounter = 3, Coast = 2.3M, Date = AnyDate.AddDays(5),
                     Description = Guids.Second().ToString(), Tax = 0.23d, IsActive = false
                 },
                 new()
                 {
-                    Id = Guids.Third(), PositionCounter = 1, Coast = 22.3M, Date = AnyDate.AddDays(-1),
+                    Id = Guids.Third(), PositionCounter = 1, Coast = 122.3M, Date = AnyDate.AddDays(-1),
                     Description = "Equal", Tax = 0.23d, IsActive = true
                 },
                 new()

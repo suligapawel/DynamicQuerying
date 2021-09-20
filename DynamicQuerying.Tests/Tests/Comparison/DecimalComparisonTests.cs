@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace DynamicQuerying.Tests.Tests.Comparison
 {
-    public class DateTimeComparisonTests
+    public class DecimalComparisonTests
     {
         private InMemoryDbContext _dbContext;
 
@@ -22,114 +22,108 @@ namespace DynamicQuerying.Tests.Tests.Comparison
         }
 
         [Test]
-        public async Task Should_return_objects_with_same_date()
+        public async Task Should_return_objects_with_same_coast()
         {
-            var date = OrdersFactory.AnyDate.AddDays(-1);
             Filter equalFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.Equal
             };
 
             var result = await _dbContext.Orders.Where(equalFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date == date);
+            result.Should().OnlyContain(x => x.Coast == AnyCoast());
         }
 
         [Test]
-        public async Task Should_return_objects_with_other_dates()
+        public async Task Should_return_objects_with_other_coast()
         {
-            var date = OrdersFactory.AnyDate.AddDays(-1);
             Filter notEqualFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.NotEqual
             };
 
             var result = await _dbContext.Orders.Where(notEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date != date);
+            result.Should().OnlyContain(x => x.Coast != AnyCoast());
         }
 
         [Test]
-        public async Task Should_return_objects_with_dates_greater_than_date()
+        public async Task Should_return_objects_with_coasts_greater_than_coast()
         {
-            var date = OrdersFactory.AnyDate;
             Filter greaterFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.GreaterThan
             };
 
             var result = await _dbContext.Orders.Where(greaterFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date > date);
-            result.Should().NotContain(x => x.Date <= date);
+            result.Should().OnlyContain(x => x.Coast > AnyCoast());
+            result.Should().NotContain(x => x.Coast <= AnyCoast());
         }
 
         [Test]
-        public async Task Should_return_objects_with_dates_greater_than_or_equal_date()
+        public async Task Should_return_objects_with_coasts_greater_than_or_equal_coast()
         {
-            var date = OrdersFactory.AnyDate;
             Filter greaterOrEqualFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.GreaterOrEqual
             };
 
             var result = await _dbContext.Orders.Where(greaterOrEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date >= date);
-            result.Should().NotContain(x => x.Date < date);
+            result.Should().OnlyContain(x => x.Coast >= AnyCoast());
+            result.Should().NotContain(x => x.Coast < AnyCoast());
         }
 
         [Test]
-        public async Task Should_return_objects_with_dates_less_than_date()
+        public async Task Should_return_objects_with_coasts_less_than_coast()
         {
-            var date = OrdersFactory.AnyDate;
             Filter lessFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.LessThan
             };
 
             var result = await _dbContext.Orders.Where(lessFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date < date);
-            result.Should().NotContain(x => x.Date >= date);
+            result.Should().OnlyContain(x => x.Coast < AnyCoast());
+            result.Should().NotContain(x => x.Coast >= AnyCoast());
         }
 
         [Test]
-        public async Task Should_return_objects_with_dates_less_than_or_equal_date()
+        public async Task Should_return_objects_with_coasts_less_than_or_equal_coast()
         {
-            var date = OrdersFactory.AnyDate;
             Filter lessOrEqualFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {AnyCoast()},
                 ComparisonType = ComparisonType.LessOrEqual
             };
 
             var result = await _dbContext.Orders.Where(lessOrEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Date <= date);
-            result.Should().NotContain(x => x.Date > date);
+            result.Should().OnlyContain(x => x.Coast <= AnyCoast());
+            result.Should().NotContain(x => x.Coast > AnyCoast());
         }
 
         [TestCase(ComparisonType.Contains)]
         [TestCase(ComparisonType.StartsWith)]
         public async Task Should_return_nothing_when_comparisonType_is_not_implemented(ComparisonType comparisonType)
         {
-            var date = OrdersFactory.AnyDate.AddDays(-1);
+            var coast = 22.3M;
             Filter notImplementedFilter = new()
             {
-                Field = "Date",
-                Values = new List<object> {date},
+                Field = "Coast",
+                Values = new List<object> {coast},
                 ComparisonType = comparisonType
             };
 
@@ -137,5 +131,7 @@ namespace DynamicQuerying.Tests.Tests.Comparison
 
             result.Should().Be(0);
         }
+
+        private static decimal AnyCoast() => 22.3M;
     }
 }
