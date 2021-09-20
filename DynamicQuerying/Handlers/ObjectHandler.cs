@@ -48,16 +48,16 @@ namespace DynamicQuerying.Handlers
             => Expression.Constant(false);
         
         public virtual Expression GreaterThan(Expression parameter, Expression value) 
-            => Expression.Constant(false);
+            => Expression.GreaterThan(parameter, value);
         
         public virtual Expression GreaterOrEqual(Expression parameter, Expression value) 
-            => Expression.Constant(false);
+            => Expression.GreaterThanOrEqual(parameter, value);
         
         public virtual Expression LessThan(Expression parameter, Expression value) 
-            => Expression.Constant(false);
+            => Expression.LessThan(parameter, value);
         
         public virtual Expression LessOrEqual(Expression parameter, Expression value) 
-            => Expression.Constant(false);
+            => Expression.LessThanOrEqual(parameter, value);
 
         protected abstract bool TrySpecifyParse(string value, out object result);
     }
