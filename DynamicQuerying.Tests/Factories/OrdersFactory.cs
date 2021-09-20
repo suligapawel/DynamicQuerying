@@ -22,17 +22,17 @@ namespace DynamicQuerying.Tests.Factories
                 new()
                 {
                     Id = Guids.Second(), PositionCounter = 3, Coast = 2.3M, Date = AnyDate.AddDays(5),
-                    Description = Guids.Second().ToString(), Tax = 0.23d, IsActive = false
+                    Description = Guids.Second().ToString(), Tax = 0.5d, IsActive = false
                 },
                 new()
                 {
                     Id = Guids.Third(), PositionCounter = 1, Coast = 122.3M, Date = AnyDate.AddDays(-1),
-                    Description = "Equal", Tax = 0.23d, IsActive = true
+                    Description = "Equal", Tax = 0.7d, IsActive = true
                 },
                 new()
                 {
                     Id = Guids.Fourth(), PositionCounter = 2, Coast = 100.9M, Date = AnyDate.AddDays(1),
-                    Description = "Description_for_test_start_with", Tax = 0.23d, IsActive = true
+                    Description = "Description_for_test_start_with", Tax = 0.01d, IsActive = true
                 },
                 new()
                 {

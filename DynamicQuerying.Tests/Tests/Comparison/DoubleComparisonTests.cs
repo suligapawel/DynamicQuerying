@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace DynamicQuerying.Tests.Tests.Comparison
 {
-    public class DecimalComparisonTests
+    public class DoubleComparisonTests
     {
         private InMemoryDbContext _dbContext;
 
@@ -22,97 +22,97 @@ namespace DynamicQuerying.Tests.Tests.Comparison
         }
 
         [Test]
-        public async Task Should_return_objects_with_same_coast()
+        public async Task Should_return_objects_with_same_tax()
         {
             Filter equalFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.Equal
             };
 
             var result = await _dbContext.Orders.Where(equalFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast == AnyCoast());
+            result.Should().OnlyContain(x => x.Tax == AnyTax());
         }
 
         [Test]
-        public async Task Should_return_objects_with_other_coast()
+        public async Task Should_return_objects_with_other_tax()
         {
             Filter notEqualFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.NotEqual
             };
 
             var result = await _dbContext.Orders.Where(notEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast != AnyCoast());
+            result.Should().OnlyContain(x => x.Tax != AnyTax());
         }
 
         [Test]
-        public async Task Should_return_objects_with_coasts_greater_than_coast()
+        public async Task Should_return_objects_with_taxes_greater_than_tax()
         {
             Filter greaterFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.GreaterThan
             };
 
             var result = await _dbContext.Orders.Where(greaterFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast > AnyCoast());
-            result.Should().NotContain(x => x.Coast <= AnyCoast());
+            result.Should().OnlyContain(x => x.Tax > AnyTax());
+            result.Should().NotContain(x => x.Tax <= AnyTax());
         }
 
         [Test]
-        public async Task Should_return_objects_with_coasts_greater_than_or_equal_coast()
+        public async Task Should_return_objects_with_taxes_greater_than_or_equal_tax()
         {
             Filter greaterOrEqualFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.GreaterOrEqual
             };
 
             var result = await _dbContext.Orders.Where(greaterOrEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast >= AnyCoast());
-            result.Should().NotContain(x => x.Coast < AnyCoast());
+            result.Should().OnlyContain(x => x.Tax >= AnyTax());
+            result.Should().NotContain(x => x.Tax < AnyTax());
         }
 
         [Test]
-        public async Task Should_return_objects_with_coasts_less_than_coast()
+        public async Task Should_return_objects_with_taxes_less_than_tax()
         {
             Filter lessFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.LessThan
             };
 
             var result = await _dbContext.Orders.Where(lessFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast < AnyCoast());
-            result.Should().NotContain(x => x.Coast >= AnyCoast());
+            result.Should().OnlyContain(x => x.Tax < AnyTax());
+            result.Should().NotContain(x => x.Tax >= AnyTax());
         }
 
         [Test]
-        public async Task Should_return_objects_with_coasts_less_than_or_equal_coast()
+        public async Task Should_return_objects_with_taxes_less_than_or_equal_tax()
         {
             Filter lessOrEqualFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = ComparisonType.LessOrEqual
             };
 
             var result = await _dbContext.Orders.Where(lessOrEqualFilter).ToListAsync();
 
-            result.Should().OnlyContain(x => x.Coast <= AnyCoast());
-            result.Should().NotContain(x => x.Coast > AnyCoast());
+            result.Should().OnlyContain(x => x.Tax <= AnyTax());
+            result.Should().NotContain(x => x.Tax > AnyTax());
         }
 
         [TestCase(ComparisonType.Contains)]
@@ -121,8 +121,8 @@ namespace DynamicQuerying.Tests.Tests.Comparison
         {
             Filter notImplementedFilter = new()
             {
-                Field = "Coast",
-                Values = new List<object> {AnyCoast()},
+                Field = "Tax",
+                Values = new List<object> {AnyTax()},
                 ComparisonType = comparisonType
             };
 
@@ -131,6 +131,6 @@ namespace DynamicQuerying.Tests.Tests.Comparison
             result.Should().Be(0);
         }
 
-        private static decimal AnyCoast() => 22.3M;
+        private static double AnyTax() => 0.23d;
     }
 }
